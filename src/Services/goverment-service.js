@@ -3,9 +3,10 @@ import AxiosMocker from 'axios-mock-adapter';
 import { calculateRandomWithinRange } from '../Utils';
 
 export const verifyUserData =  (data) => {
+    const url = '/citizens/verified';
     const mockData = new AxiosMocker(Axios);
 
-    mockData.onPost('/citizens/verified').reply(() => {
+    mockData.onPost(url).reply(() => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 let status, success;
@@ -21,5 +22,5 @@ export const verifyUserData =  (data) => {
         });
     });
 
-    return Axios.post('/citizens/verified', data).then(({ data }) => data);
+    return Axios.post(url, data).then(({ data }) => data);
 };
