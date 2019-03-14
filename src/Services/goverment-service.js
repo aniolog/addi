@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import AxiosMocker from 'axios-mock-adapter';
+import { calculateRandomWithinRange } from '../Utils';
 
 export const verifyUserData =  (data) => {
     const mockData = new AxiosMocker(Axios);
@@ -8,7 +9,7 @@ export const verifyUserData =  (data) => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 let status, success;
-                if (Math.random() > 0.1) {
+                if (calculateRandomWithinRange(100,0) > 10) {
                     status = 200;
                     success = true;
                 } else {
@@ -16,7 +17,7 @@ export const verifyUserData =  (data) => {
                     success = false;
                 }
                 resolve([status, { success } ]);
-            }, 1000);
+            }, 4000);
         });
     });
 

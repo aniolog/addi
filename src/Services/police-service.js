@@ -1,3 +1,4 @@
+import { calculateRandomWithinRange } from '../Utils';
 import Axios from 'axios';
 import AxiosMocker from 'axios-mock-adapter';
 
@@ -7,8 +8,8 @@ export const verifyPoliceRecords =  (id) => {
     mockData.onGet(`/citizens/police-records/${id}`).reply(() => {
         return new Promise((resolve) => {
             setTimeout(() => {
-                resolve([200, { qty: Math.floor(Math.random() * (+2 - +0)) } ]);
-            }, 1000);
+                resolve([200, { qty: calculateRandomWithinRange(2, 0) }]);
+            }, 4000);
         });
     });
 
