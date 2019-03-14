@@ -1,51 +1,82 @@
 import React from 'react';
-import { Table, Container } from 'reactstrap';
-import { verifyUserData } from '../../Services/govermentService';
-import { verifyPoliceRecords } from '../../Services/policeService';
-import { getUserScore } from '../../Services/addiService';
+import { Table, Container, Row, Col, Button } from 'reactstrap';
+import { validatePerson } from '../../Services/validation-service';
+import RowStatusComponent from './Components/row-status';
+import ModalComponent from '../Modal';
+
+const headerStyle = {
+  textAlign: 'left',
+};
+
+const containerStyle = {
+  backgroundColor: '#ecf0f1',
+};
+
 
 class TableComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        people: [],
+        modalOpen: false,
+      };
+      this.startValidationProcess = this.startValidationProcess.bind(this);
+    }
     
-    componentDidMount() {
-        verifyUserData({ test: 1 }).then((data) => console.log(data));
-        verifyPoliceRecords('1').then((data) => console.log(data));
-        getUserScore('1').then((data) => console.log(data));
+    startValidationProcess(person) {
+      const { people: editablePeople } = this.state;
+      const unprocessedPerson = { ...person, status: 'processing' };
+      editablePeople.unshift(unprocessedPerson);
+      validatePerson(unprocessedPerson).then((result) => {
+        if (result) {
+          console.log(`Persona identificada con el numero ${unprocessedPerson.id} ha sido agregada`);
+          unprocessedPerson.status = 'success';
+        } else {
+          console.log(`Hubo un error procesando la persona con el numero de identificacion: ${unprocessedPerson.id}`);
+          unprocessedPerson.status = 'error';
+        }
+        this.forceUpdate();
+      });
+      this.setState({ people: editablePeople })
     }
 
     render() {
+        const { people } = this.state;
         return (
-            <Container fluid={true} style={{ backgroundColor: '#ecf0f1' }}>
+          <div>
+            <Row>
+              <Col xl="9">
+                <h1 style={headerStyle}>Prueba Addi</h1>
+              </Col>
+              <Col xl="3" color="primary"><Button>Agregar prospecto</Button></Col>
+            </Row>
+            
+            <Container fluid={true} style={containerStyle}>
                 <Table>
-                <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+                  <thead>
+                    <tr>
+                      <th>Tipo de documento</th>
+                      <th>Documento de identidad</th>
+                      <th>Fecha de expedicíon</th>
+                      <th>Nombre completo</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {people.map(({ id, documentType, status, name, expeditionDate }) => 
+                      <tr key={id}>
+                        <td>{documentType}</td>
+                        <td>{id}</td>
+                        <td>{expeditionDate}</td>
+                        <td>{name}</td>
+                        <RowStatusComponent status={status} />
+                      </tr>
+                    )}
+                  </tbody>
                 </Table>
-            </Container>
+              </Container>
+              <ModalComponent />
+            </div>
         );
     }
 }
