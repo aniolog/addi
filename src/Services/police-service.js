@@ -3,9 +3,10 @@ import Axios from 'axios';
 import AxiosMocker from 'axios-mock-adapter';
 
 export const verifyPoliceRecords =  (id) => {
+    const url = `/citizens/police-records/${id}`;
     const mockData = new AxiosMocker(Axios);
 
-    mockData.onGet(`/citizens/police-records/${id}`).reply(() => {
+    mockData.onGet(url).reply(() => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve([200, { qty: calculateRandomWithinRange(2, 0) }]);
@@ -13,5 +14,5 @@ export const verifyPoliceRecords =  (id) => {
         });
     });
 
-    return Axios.get(`/citizens/police-records/${id}`).then(({ data }) => data);
+    return Axios.get(url).then(({ data }) => data);
 };
