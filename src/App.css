@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  padding: 4%;
+  max-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #dcdde1;
+  
 }
 
 .App-logo {
