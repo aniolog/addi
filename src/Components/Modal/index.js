@@ -10,6 +10,8 @@ import {
   Input,
   Label
 } from 'reactstrap';
+import PropTypes from 'prop-types';
+
 
 const initialFormValue = {
   id: undefined,
@@ -104,5 +106,15 @@ class ModalComponent extends React.Component {
     );
   }
 }
+
+ModalComponent.propTypes = {
+  onCandidateSubmit: PropTypes.func.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+};
+
+ModalComponent.defaultProps = {
+  open: false,
+};
 
 export default ModalComponent;
