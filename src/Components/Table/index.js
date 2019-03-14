@@ -21,7 +21,6 @@ class TableComponent extends React.Component {
         modalOpen: false,
       };
       this.startValidationProcess = this.startValidationProcess.bind(this);
-      this.shouldOpenModal = this.shouldOpenModal.bind(this);
     }
     
     startValidationProcess(person) {
@@ -38,32 +37,18 @@ class TableComponent extends React.Component {
         }
         this.forceUpdate();
       });
-      this.setState({ people: editablePeople, modalOpen: false })
-    }
-
-    shouldOpenModal(openState) {
-      let modalOpen;
-      if (openState) {
-        modalOpen = openState;
-      } else {
-        const { modalOpen: currentState } = this.state;
-        modalOpen = !currentState;
-      }
-      console.log(modalOpen);
-      this.setState({ modalOpen });
+      this.setState({ people: editablePeople })
     }
 
     render() {
-        const { people, modalOpen } = this.state;
+        const { people } = this.state;
         return (
           <div>
             <Row>
               <Col xl="9">
                 <h1 style={headerStyle}>Prueba Addi</h1>
               </Col>
-              <Col xl="3">
-                <Button color="primary" onClick={this.shouldOpenModal}>Agregar prospecto</Button>
-              </Col>
+              <Col xl="3" color="primary"><Button>Agregar prospecto</Button></Col>
             </Row>
             
             <Container fluid={true} style={containerStyle}>
@@ -90,12 +75,7 @@ class TableComponent extends React.Component {
                   </tbody>
                 </Table>
               </Container>
-              <ModalComponent
-                open={modalOpen}
-                onCandidateSubmit={this.startValidationProcess}
-                onCloseModal={this.shouldOpenModal}
-              />
-              
+              <ModalComponent />
             </div>
         );
     }
