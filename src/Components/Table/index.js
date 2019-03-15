@@ -3,6 +3,7 @@ import { Table, Container, Row, Col, Button } from 'reactstrap';
 import { validatePerson } from '../../Services/validation-service';
 import RowStatusComponent from './Components/row-status';
 import ModalComponent from '../Modal';
+import { PROCESSING_STATUS, SUCCESS_STATUS, ERROR_STATUS } from '../../Constants';
 
 const headerStyle = {
   textAlign: 'left',
@@ -17,7 +18,7 @@ class TableComponent extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        people: [],
+        prospects: [],
         modalOpen: false,
       };
       this.startValidationProcess = this.startValidationProcess.bind(this);
@@ -25,20 +26,20 @@ class TableComponent extends React.Component {
     }
     
     startValidationProcess(person) {
-      const { people: editablePeople } = this.state;
-      const unprocessedPerson = { ...person, status: 'processing' };
-      editablePeople.unshift(unprocessedPerson);
+      const { prospects: editableProspects } = this.state;
+      const unprocessedPerson = { ...person, status: PROCESSING_STATUS };
+      editableProspects.unshift(unprocessedPerson);
       validatePerson(unprocessedPerson).then((result) => {
         if (result) {
           console.log(`Persona identificada con el numero ${unprocessedPerson.id} ha sido agregada`);
-          unprocessedPerson.status = 'success';
+          unprocessedPerson.status = SUCCESS_STATUS;
         } else {
           console.log(`Hubo un error procesando la persona con el numero de identificacion: ${unprocessedPerson.id}`);
-          unprocessedPerson.status = 'error';
+          unprocessedPerson.status = ERROR_STATUS;
         }
         this.forceUpdate();
       });
-      this.setState({ people: editablePeople, modalOpen: false })
+      this.setState({ prospects: editableProspects, modalOpen: false })
     }
 
     shouldOpenModal(openState) {
@@ -49,12 +50,11 @@ class TableComponent extends React.Component {
         const { modalOpen: currentState } = this.state;
         modalOpen = !currentState;
       }
-      console.log(modalOpen);
       this.setState({ modalOpen });
     }
 
     render() {
-        const { people, modalOpen } = this.state;
+        const { prospects, modalOpen } = this.state;
         return (
           <div>
             <Row>
@@ -78,7 +78,7 @@ class TableComponent extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {people.map(({ id, documentType, status, name, expeditionDate }) => 
+                    {prospects.map(({ id, documentType, status, name, expeditionDate }) => 
                       <tr key={id}>
                         <td>{documentType}</td>
                         <td>{id}</td>

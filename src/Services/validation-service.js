@@ -6,12 +6,12 @@ import { getUserScore } from './addi-service';
 export const validatePerson = async (data) => {
   try {
     let response = false;
-    const [, { qty }] =
+    const [{ response: dataResponse }, { qty }] =
       await Promise.all([
           verifyUserData(data),
           verifyPoliceRecords(data.id)
       ]);
-    if (qty === 0){
+    if (dataResponse & qty === 0){
         const { score } = await getUserScore();
         response = score >= ACCEPTANCE_COEFFICIENT;
     }

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Spinner, Badge } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { PROCESSING_STATUS, SUCCESS_STATUS, ERROR_STATUS } from '../../../Constants';
 
 
 const RowStatusComponent = ({ status }) => (
   <td>
-    {status === 'processing' && <Spinner />}
-    {status === 'success' && <Badge color="success">Success</Badge>}
-    {status === 'error' &&  <Badge color="danger">Error</Badge>}
+    {status === PROCESSING_STATUS && <Spinner />}
+    {status === SUCCESS_STATUS && <Badge color="success">Success</Badge>}
+    {status === ERROR_STATUS &&  <Badge color="danger">Error</Badge>}
   </td>
 );
 
@@ -16,7 +17,7 @@ RowStatusComponent.propTypes = {
 };
 
 RowStatusComponent.defaultProps = {
-  status: 'processing',
+  status: PROCESSING_STATUS,
 };
 
 export default RowStatusComponent;

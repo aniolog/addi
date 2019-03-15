@@ -9,15 +9,7 @@ export const verifyUserData =  (data) => {
     mockData.onPost(url).reply(() => {
         return new Promise((resolve) => {
             setTimeout(() => {
-                let status, success;
-                if (calculateRandomWithinRange(100,0) > 10) {
-                    status = 200;
-                    success = true;
-                } else {
-                    status = 404;
-                    success = false;
-                }
-                resolve([status, { success } ]);
+                resolve([200, { response: calculateRandomWithinRange(0,100) > 10} ]);
             }, 4000);
         });
     });
