@@ -10,7 +10,7 @@ export const verifyPoliceRecords =  (id) => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve([200, { qty: calculateRandomWithinRange(0, 2) }]);
-            }, 4000);
+            }, 1000);
         });
     });
 

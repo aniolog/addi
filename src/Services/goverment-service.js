@@ -10,7 +10,7 @@ export const verifyUserData =  (data) => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve([200, { response: calculateRandomWithinRange(0,100) > 10} ]);
-            }, 4000);
+            }, 1000);
         });
     });
 
