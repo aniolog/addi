@@ -9,8 +9,8 @@ export const verifyPoliceRecords =  (id) => {
     mockData.onGet(url).reply(() => {
         return new Promise((resolve) => {
             setTimeout(() => {
-                resolve([200, { qty: calculateRandomWithinRange(2, 0) }]);
-            }, 4000);
+                resolve([200, { qty: calculateRandomWithinRange(0, 2) }]);
+            }, 1000);
         });
     });
 

@@ -12,7 +12,7 @@ export const getUserScore =  (id) => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve([200, { score: calculateRandomWithinRange(ADDI_LOWER_SCORE, ADDI_MAX_SCORE) }]);
-            }, 4000);
+            }, 1000);
         });
     });
 
