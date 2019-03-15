@@ -9,6 +9,11 @@ const headerStyle = {
   textAlign: 'left',
 };
 
+const bannerStyle = {
+  textAlign: 'center',
+  paddingBottom: '50px',
+}
+
 const containerStyle = {
   backgroundColor: '#ecf0f1',
 };
@@ -44,12 +49,8 @@ class TableComponent extends React.Component {
 
     shouldOpenModal(openState) {
       let modalOpen;
-      if (openState) {
-        modalOpen = openState;
-      } else {
-        const { modalOpen: currentState } = this.state;
-        modalOpen = !currentState;
-      }
+      const { modalOpen: currentState } = this.state;
+      modalOpen = !currentState;
       this.setState({ modalOpen });
     }
 
@@ -89,6 +90,7 @@ class TableComponent extends React.Component {
                     )}
                   </tbody>
                 </Table>
+                {prospects.length === 0 && <h3 style={bannerStyle}>No hay prospectos.</h3>}
               </Container>
               <ModalComponent
                 open={modalOpen}

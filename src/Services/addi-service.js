@@ -3,7 +3,6 @@ import AxiosMocker from 'axios-mock-adapter';
 import { calculateRandomWithinRange } from '../Utils';
 import { ADDI_LOWER_SCORE, ADDI_MAX_SCORE } from '../Constants';
 
-
 export const getUserScore =  (id) => {
     const url = `/score/${id}`;
     const mockData = new AxiosMocker(Axios);
