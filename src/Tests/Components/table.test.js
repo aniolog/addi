@@ -4,7 +4,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import { expect, assert } from 'chai';
 import TableComponent from '../../Components/Table';
 
-
 configure({adapter: new Adapter()});
 describe('Table component test' , () => {
 
