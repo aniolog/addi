@@ -53,11 +53,11 @@ class ModalComponent extends React.Component {
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="documentType">Tipo de documento</Label>
+              <Label for="document-type">Tipo de documento</Label>
               <Input
                 type="select"
-                name="documentType"
-                id="exampleSelect"
+                name="document-type"
+                id="document-type"
                 required={true}
                 onChange={({ target }) => this.onChangeField('documentType', target.value)}
               >
@@ -77,10 +77,10 @@ class ModalComponent extends React.Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="expeditionDate">Fecha de expedicíon del documento</Label>
+              <Label for="expedition-date">Fecha de expedicíon del documento</Label>
               <Input
                 type="date"
-                id="expeditionDate"
+                id="expedition-date"
                 required={true}
                 
                 onChange={({ target }) => this.onChangeField('expeditionDate', target.value)}
@@ -99,8 +99,8 @@ class ModalComponent extends React.Component {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" disabled={!formValid} onClick={this.submitCandidate}>Agregar</Button>
-          <Button color="secondary" onClick={() => onCloseModal()}>Cancelar</Button>
+          <Button id="submit" color="primary" disabled={!formValid} onClick={this.submitCandidate}>Agregar</Button>
+          <Button id="close" color="secondary" onClick={() => onCloseModal()}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     );
